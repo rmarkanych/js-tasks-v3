@@ -29,3 +29,12 @@ img {
   border: none;
   cursor: pointer;
 }
+.flatpickr-input {
+  text-align: center;
+}
+.timer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
