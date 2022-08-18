@@ -9,9 +9,7 @@ const dataMinutes = document.querySelector('span[data-minutes]');
 const dataSeconds = document.querySelector('span[data-seconds]');
 const delay = 1000;
 
-startBtn.addEventListener('click', updateTimer);
-
-function updateTimer() {
+startBtn.addEventListener('click', () => {
   const idInterval = setInterval(() => {
     const deltaTime = new Date(dataTimePicker.value).getTime() - Date.now();
     const { days, hours, minutes, seconds } = convertMs(deltaTime);
@@ -21,7 +19,8 @@ function updateTimer() {
     dataSeconds.textContent = addLeadingZero(seconds);
     if (deltaTime < delay) clearInterval(idInterval);
   }, delay);
-}
+});
+
 startBtn.disabled = true;
 
 const options = {
