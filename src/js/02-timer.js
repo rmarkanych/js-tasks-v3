@@ -32,13 +32,11 @@ const options = {
   minuteIncrement: 1,
 
   onClose(selectedDates) {
-    if (selectedDates[0].getTime() < options.defaultDate.getTime()) {
-      Notify.warning('Please choose a date in the future');
-      startBtn.setAttribute('disabled', '');
-    } else {
-      startBtn.removeAttribute('disabled');
-      Notify.success('Thanx for choosing valid data');
-    }
+    selectedDates[0].getTime() < new Date().getTime()
+      ? (Notify.warning('Please choose a date in the future'),
+        startBtn.setAttribute('disabled', ''))
+      : (startBtn.removeAttribute('disabled'),
+        Notify.success('Thanx for choosing valid data'));
   },
 };
 
