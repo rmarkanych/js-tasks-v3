@@ -1,4 +1,5 @@
 import flatpickr from 'flatpickr';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import 'flatpickr/dist/flatpickr.min.css';
 
 const dataTimePicker = document.querySelector('#datetime-picker');
@@ -13,6 +14,7 @@ startBtn.addEventListener('click', () => {
   const idInterval = setInterval(() => {
     const deltaTime = new Date(dataTimePicker.value).getTime() - Date.now();
     const { days, hours, minutes, seconds } = convertMs(deltaTime);
+    if (deltaTime < 0) return;
     dataDays.textContent = addLeadingZero(days);
     dataHours.textContent = addLeadingZero(hours);
     dataMinutes.textContent = addLeadingZero(minutes);
@@ -21,7 +23,7 @@ startBtn.addEventListener('click', () => {
   }, delay);
 });
 
-startBtn.disabled = true;
+startBtn.setAttribute('disabled', '');
 
 const options = {
   enableTime: true,
@@ -31,9 +33,12 @@ const options = {
 
   onClose(selectedDates) {
     if (selectedDates[0].getTime() < options.defaultDate.getTime()) {
-      window.alert('Please choose a date in the future');
-      startBtn.disabled = true;
-    } else startBtn.disabled = false;
+      Notify.warning('Please choose a date in the future');
+      startBtn.setAttribute('disabled', '');
+    } else {
+      startBtn.removeAttribute('disabled');
+      Notify.success('Thanx for choosing valid data');
+    }
   },
 };
 
